@@ -34,11 +34,16 @@ class Graph(object):
         mpl.rcParams.update(rc_dict)
         return
 
-    def legend(self, ax, **kwargs):
-        leg = ax.legend(prop={'size': 9, 'weight': 'bold',
-                              'family': 'Univers 67 Condensed'},
-                        **kwargs)
+    def legend(self, ax, handles=None, labels=None, **kwargs):
+        font = {'size': 9, 'weight': 'bold',
+                              'family': 'Univers 67 Condensed'}
+        if handles is None or labels is None:
+            handles, labels = ax.get_legend_handles_labels()
+        leg = ax.legend(handles, labels, prop=font, **kwargs)
+
+        # add title to legend
         self.legend_title(leg)
+
         return leg
 
     def legend_title(self, leg):
