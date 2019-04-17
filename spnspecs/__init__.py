@@ -12,5 +12,6 @@ from .version import __version__
 # imports
 from . import spnspecs
 from .graphs import Graph
+from .maps import Map
 
 #from .mbase import run_model, which
