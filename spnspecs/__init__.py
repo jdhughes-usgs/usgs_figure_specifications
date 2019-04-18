@@ -11,7 +11,8 @@ from .version import __version__
 
 # imports
 from . import spnspecs
-from .graphs import Graph
-from .maps import Map
+from .graphs import set_graph_specifications
+from .maps import set_map_specifications
+from .utils import graph_legend, graph_legend_title, heading
 
 #from .mbase import run_model, which
