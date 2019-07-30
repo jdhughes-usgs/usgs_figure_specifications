@@ -22,7 +22,7 @@ def graph_legend_title(leg):
     return leg
 
 
-def heading( ax, letter=None, heading=None, x=0.00, y=1.01):
+def heading(ax, letter=None, heading=None, x=0.00, y=1.01):
     text = None
     if letter is not None:
         font = {'family': 'Univers 67 Condensed Oblique',
@@ -54,6 +54,36 @@ def heading( ax, letter=None, heading=None, x=0.00, y=1.01):
                        fontdict=font,
                        transform=ax.transAxes)
     return text
+
+def add_text(ax=None, text='', x=0., y=0., transform=True, 
+             bold=True, italic=True, fontsize=9,
+             ha='left', va='bottom'):
+    if ax is None:
+        return None
+        
+    if transform:
+        transform = ax.transAxes
+    else:
+        transform = ax.transData
+    if bold:
+        weight = 'bold'
+    else:
+        weight = 'normal'
+    if italic:
+        family = 'Univers 67 Condensed Oblique'
+        style = 'oblique'
+    else:
+        family = 'Univers 67 Condensed'
+        style = 'normal'
+    font = {'family': family,
+            'size': fontsize,
+            'weight': weight,
+            'style': style}
+    text_obj = ax.text(x, y, text,
+                       va=va, ha=ha,
+                       fontdict=font,
+                       transform=transform)
+    return text_obj
 
 
 def remove_edge_ticks(ax, verbose=False):

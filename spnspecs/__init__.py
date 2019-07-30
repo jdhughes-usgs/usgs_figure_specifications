@@ -14,6 +14,6 @@ from . import spnspecs
 from .graphs import set_graph_specifications
 from .maps import set_map_specifications
 from .utils import graph_legend, graph_legend_title, \
-    heading, remove_edge_ticks
+    heading, add_text, remove_edge_ticks
 
 #from .mbase import run_model, which
