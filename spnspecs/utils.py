@@ -144,14 +144,13 @@ def remove_edge_ticks(ax, verbose=False):
 
     # remove edge ticks on y-axis
     ticks = ax.yaxis.majorTicks
-    if np.allclose(float(yticks[0]), ymin):
-    #if float(yticks[0]) == ymin:
-        ticks[0].tick1On = False
-        ticks[0].tick2On = False
-    #if float(yticks[-1]) == ymax:
-    if np.allclose(float(yticks[-1]), ymax):
-        ticks[-1].tick1On = False
-        ticks[-1].tick2On = False
+    for iloc in [0, -1]:
+        if np.allclose(float(yticks[iloc]), ymin):
+            ticks[iloc].tick1On = False
+            ticks[iloc].tick2On = False
+        if np.allclose(float(yticks[iloc]), ymax):
+            ticks[iloc].tick1On = False
+            ticks[iloc].tick2On = False
 
     # get min and max value and ticks
     xmin, xmax = ax.get_xlim()
@@ -167,13 +166,12 @@ def remove_edge_ticks(ax, verbose=False):
 
     # remove edge ticks on y-axis
     ticks = ax.xaxis.majorTicks
-    #if float(xticks[0]) == xmin:
-    if np.allclose(float(xticks[0]), xmin):
-        ticks[0].tick1On = False
-        ticks[0].tick2On = False
-    #if float(xticks[-1]) == xmax:
-    if np.allclose(float(xticks[-1]), xmax):
-        ticks[-1].tick1On = False
-        ticks[-1].tick2On = False
+    for iloc in [0, -1]:
+        if np.allclose(float(xticks[iloc]), xmin):
+            ticks[iloc].tick1On = False
+            ticks[iloc].tick2On = False
+        if np.allclose(float(xticks[iloc]), xmax):
+            ticks[iloc].tick1On = False
+            ticks[iloc].tick2On = False
 
     return ax
