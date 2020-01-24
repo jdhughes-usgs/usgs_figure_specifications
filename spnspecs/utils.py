@@ -12,14 +12,22 @@ def graph_legend(ax, handles=None, labels=None, **kwargs):
     leg = ax.legend(handles, labels, prop=font, **kwargs)
 
     # add title to legend
-    leg = graph_legend_title(leg)
+    if 'title' in kwargs:
+        title = kwargs.pop('title')
+    else:
+        title = None
+    leg = graph_legend_title(leg, title=title)
 
     return leg
 
 
-def graph_legend_title(leg):
-    leg.set_title('EXPLANATION', prop={'size': 9, 'weight': 'bold',
-                                       'family': 'Univers 67 Condensed'})
+def graph_legend_title(leg, title=None):
+    if title is None:
+        title = 'EXPLANATION'
+    elif title.lower() == 'none':
+        title = None
+    leg.set_title(title, prop={'size': 9, 'weight': 'bold',
+                               'family': 'Univers 67 Condensed'})
     return leg
 
 
@@ -63,7 +71,7 @@ def set_font(bold=True, italic=True, fontsize=9):
     else:
         weight = 'normal'
         family = 'Univers 57'
-    
+
     if italic:
         family += ' Condensed Oblique'
         style = 'oblique'
@@ -76,21 +84,21 @@ def set_font(bold=True, italic=True, fontsize=9):
             'style': style}
 
     return font
-        
-def add_text(ax=None, text='', x=0., y=0., transform=True, 
+
+def add_text(ax=None, text='', x=0., y=0., transform=True,
              bold=True, italic=True, fontsize=9,
              ha='left', va='bottom'):
     if ax is None:
         return None
-        
+
     if transform:
         transform = ax.transAxes
     else:
         transform = ax.transData
-    
-    font = set_font(bold=bold, italic=italic, 
+
+    font = set_font(bold=bold, italic=italic,
                     fontsize=fontsize)
-    
+
     text_obj = ax.text(x, y, text,
                        va=va, ha=ha,
                        fontdict=font,
@@ -102,16 +110,16 @@ def add_annotation(ax=None, text='', xy=None, xytext=None,
                    ha='left', va='bottom', **kwargs):
     if ax is None:
         return None
-        
+
     if xy is None:
         xy = (0., 0.)
-    
+
     if xytext is None:
         xytext = (0., 0.)
-        
-    font = set_font(bold=bold, italic=italic, 
+
+    font = set_font(bold=bold, italic=italic,
                     fontsize=fontsize)
-                    
+
     # add font information to kwargs
     if kwargs is None:
         kwargs = font
@@ -123,7 +131,7 @@ def add_annotation(ax=None, text='', xy=None, xytext=None,
     ann_obj = ax.annotate(text, xy, xytext,
                           va=va, ha=ha,
                           **kwargs)
-    
+
     return ann_obj
 
 def remove_edge_ticks(ax, verbose=False):
@@ -146,11 +154,11 @@ def remove_edge_ticks(ax, verbose=False):
     ticks = ax.yaxis.majorTicks
     for iloc in [0, -1]:
         if np.allclose(float(yticks[iloc]), ymin):
-            ticks[iloc].tick1On = False
-            ticks[iloc].tick2On = False
+            ticks[iloc].tick1line.set_visible = False
+            ticks[iloc].tick2line.set_visible = False
         if np.allclose(float(yticks[iloc]), ymax):
-            ticks[iloc].tick1On = False
-            ticks[iloc].tick2On = False
+            ticks[iloc].tick1line.set_visible = False
+            ticks[iloc].tick2line.set_visible = False
 
     # get min and max value and ticks
     xmin, xmax = ax.get_xlim()
@@ -168,10 +176,10 @@ def remove_edge_ticks(ax, verbose=False):
     ticks = ax.xaxis.majorTicks
     for iloc in [0, -1]:
         if np.allclose(float(xticks[iloc]), xmin):
-            ticks[iloc].tick1On = False
-            ticks[iloc].tick2On = False
+            ticks[iloc].tick1line.set_visible = False
+            ticks[iloc].tick2line.set_visible = False
         if np.allclose(float(xticks[iloc]), xmax):
-            ticks[iloc].tick1On = False
-            ticks[iloc].tick2On = False
+            ticks[iloc].tick1line.set_visible = False
+            ticks[iloc].tick2line.set_visible = False
 
     return ax
