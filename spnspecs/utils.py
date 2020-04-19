@@ -87,7 +87,7 @@ def set_font(bold=True, italic=True, fontsize=9):
 
 def add_text(ax=None, text='', x=0., y=0., transform=True,
              bold=True, italic=True, fontsize=9,
-             ha='left', va='bottom'):
+             ha='left', va='bottom', **kwargs):
     if ax is None:
         return None
 
@@ -102,7 +102,7 @@ def add_text(ax=None, text='', x=0., y=0., transform=True,
     text_obj = ax.text(x, y, text,
                        va=va, ha=ha,
                        fontdict=font,
-                       transform=transform)
+                       transform=transform, **kwargs)
     return text_obj
 
 def add_annotation(ax=None, text='', xy=None, xytext=None,
